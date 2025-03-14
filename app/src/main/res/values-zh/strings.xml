@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">吃什么</string>
+    <string name="app_options">选项</string>
+    <string name="app_what_to_eat">吃什么</string>
+    <string name="app_why_poking_me">戳我干嘛?</string>
+    <string name="app_answer_of_what_to_eat">我也不知道吃什么</string>
+    <string name="app_manage">管理</string>
+    <string name="app_cancel">取消</string>
+    <string name="app_delete">删除</string>
+    <string name="app_add_new_option">添加新选项</string>
+    <string name="app_new_option">新选项</string>
+    <string name="app_save">保存</string>
+    <string name="app_name_input_place_holder">选项的名字</string>
+    <string name="app_description_input_place_holder">请输入对选项的描述</string>
+    <string name="app_name_empty_tip">选项的名字不可以为空</string>
+    <string name="app_food_type_1">米饭</string>
+    <string name="app_food_type_2">快餐</string>
+    <string name="app_food_type_3">面条</string>
+    <string name="app_food_type_4">饺子</string>
+    <string name="app_food_type_5">自选</string>
+    <string name="app_other_foods">其它</string>
+    <string name="app_ok">好的</string>
+    <string name="app_sorry">抱歉</string>
+    <string name="app_another_one">换一个</string>
+    <string name="app_how_did_you_like_it">你觉得怎么样?</string>
+    <string name="app_has_been_deleted">已被删除</string>
+    <string name="app_choose_from_gallery">从相册选择</string>
+    <string name="app_take_photo">拍照</string>
+    <string name="matisse_default_bucket_name">全部</string>
+    <string name="matisse_read_media_permission_denied">请授予相册访问权限后重试</string>
+    <string name="matisse_write_external_storage_permission_denied">请授予存储写入权限后重试</string>
+    <string name="matisse_camera_permission_denied">请授予拍照权限后重试</string>
+    <string name="matisse_limit_the_number_of_media">最多只能选择 %d 个图片或视频</string>
+    <string name="matisse_cannot_select_both_picture_and_video_at_the_same_time">不能同时选择图片和视频</string>
+    <string name="matisse_no_apps_support_take_picture">没有可用于拍照的应用</string>
+    <string name="matisse_preview">预览</string>
+    <string name="matisse_sure">确定(%d/%d)</string>
+    <string name="matisse_back">返回</string>
+</resources>
