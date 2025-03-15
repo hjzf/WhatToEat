@@ -2,6 +2,8 @@ package com.lkjhgfdsa.ui.pages
 
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -67,14 +69,9 @@ import com.lkjhgfdsa.logic.model.foodType
 import com.lkjhgfdsa.ui.components.SingleCheckBox
 import com.lkjhgfdsa.ui.components.TitleBar
 import com.lkjhgfdsa.ui.theme.LocalTheme
-import github.leavesczy.matisse.CoilImageEngine
-import github.leavesczy.matisse.Matisse
 import github.leavesczy.matisse.MatisseCapture
 import github.leavesczy.matisse.MatisseCaptureContract
-import github.leavesczy.matisse.MatisseContract
-import github.leavesczy.matisse.MediaResource
 import github.leavesczy.matisse.MediaStoreCaptureStrategy
-import github.leavesczy.matisse.MediaType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -217,17 +214,15 @@ fun OptionEditPage(
         }
     }
     val mediaPickerLauncher = rememberLauncherForActivityResult(
-        contract = MatisseContract()
-    ) { result: List<MediaResource>? ->
-        if (!result.isNullOrEmpty()) {
-            val mediaResource = result[0]
-            val uri = mediaResource.uri
-            val fileName = mediaResource.name
-            val dotIndex = fileName.lastIndexOf(".")
-            val extension = if (dotIndex == -1) {
-                ""
-            } else {
-                fileName.substring(dotIndex)
+        contract = PickVisualMedia()
+    ) { uri ->
+        if (uri != null) {
+            val contentResolver = context.contentResolver
+            val type = contentResolver.getType(uri)
+            val extension = when (type) {
+                "image/jpeg" -> ".jpg"
+                "image/png" -> ".png"
+                else -> ""
             }
             val newImageName = "image_${System.currentTimeMillis()}${extension}"
             try {
@@ -255,12 +250,12 @@ fun OptionEditPage(
     ) { mediaResource ->
         if (mediaResource != null) {
             val uri = mediaResource.uri
-            val fileName = mediaResource.name
-            val dotIndex = fileName.lastIndexOf(".")
-            val extension = if (dotIndex == -1) {
-                ""
-            } else {
-                fileName.substring(dotIndex)
+            val contentResolver = context.contentResolver
+            val type = contentResolver.getType(uri)
+            val extension = when (type) {
+                "image/jpeg" -> ".jpg"
+                "image/png" -> ".png"
+                else -> ""
             }
             val newImageName = "image_${System.currentTimeMillis()}${extension}"
             try {
@@ -283,11 +278,6 @@ fun OptionEditPage(
             }
         }
     }
-    val matisse = Matisse(
-        maxSelectable = 1,
-        imageEngine = CoilImageEngine(),
-        mediaType = MediaType.ImageOnly
-    )
     if (uiState.messageText.isNotBlank()) {
         LaunchedEffect(uiState.messageText) {
             state.showSnackbar(
@@ -528,7 +518,7 @@ fun OptionEditPage(
                     Box(
                         modifier = Modifier
                             .clickable {
-                                mediaPickerLauncher.launch(matisse)
+                                mediaPickerLauncher.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
                                 menuVisible.value = false
                             }
                             .padding(horizontal = 20.dp)
